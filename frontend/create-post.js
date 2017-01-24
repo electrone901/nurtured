@@ -44,45 +44,46 @@ const CreatePost = React.createClass({
 	},
 	render(){
 		return(
-		<form>
-          <h1>Place an Ad:</h1>
-          <label>Title: </label>
+		<form className="CreateAdd-container-main">
+
+          <h1>Place an Ad</h1>
+          <label>Title: </label><br/>
           <input onChange={this.handleChange.bind(this, 'title')} type="text" name="title" />
           <br/>
           <br/>
-          <label>Add Images: </label>
+          <label>Add Images: </label><br/>
           <input onChange={this.handleChange.bind(this, 'image')} type="text" name="image" />
           <br/>
           <br/>
-          <label>Body: </label>
+          <label>Body: </label><br/>
           <textarea onChange={this.handleChange.bind(this, 'body')} type="text" name="body"> </textarea>
           <br/>
+          <label>Chose Category: </label><br/> 
+          <input onChange={this.handleChange.bind(this, 'tags')} type="text" name="tags" placeholder="New, Semi-New or Used"/>
           <br/>
-          <label>Add Category: 'New', 'Semi-New' or 'Use' </label>
-          <input onChange={this.handleChange.bind(this, 'tags')} type="text" name="tags"/>
-          <br/>
-          <br/>
-          <label>Price: </label>
+          <label>Price: </label><br/>
           <input onChange={this.handleChange.bind(this, 'price')} type="text" name="price"/> 
           <br/>
           <br/>
-          <label>Year: </label>
+          <label>Year: </label><br/>
           <input onChange={this.handleChange.bind(this, 'year')} type="text" name="year" />
           <br/>
           <br/>
 
-          <label>Brand: </label>
+          <label>Brand: </label><br/>
           <input onChange={this.handleChange.bind(this, 'brand')} type='text' name='brand' />
           <br/>
           <br/>
-          <label>Location: </label>
+          <label>Location: </label><br/>
           <input onChange={this.handleChange.bind(this, 'location')} type='text' name='location' />
           <br/>  
           <br/>
-          <label>Payments Accepted: </label>
+          <label>Payments Accepted: </label><br/>
           <input onChange={this.handleChange.bind(this, 'payments_accepted')} type='text' name='payments_accepted' />
           <br/>  
           <br/>
+
+
 
           <h3>Enter your Information</h3>
           <label>UserName: </label>

@@ -1,14 +1,29 @@
 var express = require('express')
+
+var session = require('express-session')
 var app = express()
 var bodyparser = require('body-parser')
 var path = require('path')
-// var apiRouter = require('./routes/api.js')
 var db = require('./models')
 
+var session_config = {
+	secret: 'secret key',
+	name: 'session_id',
+	resave: false,
+	saveUninitialized: true
+}
+
+
+//=====  middleware  ====
+app.use(session(session_config))  
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json())
 app.use(express.static('./public')) // absolute path /
+
+
 // ========================================
+
+
 
 // CREATE A POST
 app.post('/api/post',(req,res)=>{
@@ -87,23 +102,88 @@ app.put('/api/post/:id',(req,res)=>{
 	.then((data)=> res.send(data))
 })
 
-
-// GET POST BY DATE 
- // USE FOR NEWST FIRST 
+//Order by Oldest to Newest
 app.get('/api/post/sort/by-date',(req,res)=>{
-	db.Post.findAll({ order: [ ['createdAt', 'ASC'] ] })
+	db.Post.findAll({ order: [ ['createdAt', 'DESC'] ] })
 	.then((data)=>res.send(data))
 })
 
 
-// GET FIRST FIVE POST
+//Newest to Oldest GET POST BY DATE 
+app.get('/api/post/sort/descending',(req,res)=>{
+	db.Post.findAll({ order: [ ['createdAt', 'ASC'] ] })
+	.then((data)=>res.send(data))
+})
+
+// make an api that gives u all ads where UserId = UserId
+app.get('/api/manage',(req,res)=>{
+	//if someone is logged
+	console.log('===req.session ======',req.session)
+	if(req.session.user){
+		console.log('===req.session userId ======',req.session.user.id)
+		db.Post.findAll({ where: { UserId: req.session.user.id } }) 
+		.then((data)=>res.send(data))
+	} else {
+		res.send([])
+		//send a better object resp
+	}
+	
+})
+
+
+// GET FIRST NINE POST
 app.get('/api/post/sort/by-five',(req,res)=>{
-	db.Post.findAll({ order: [ ['createdAt', 'ASC'] ], limit: 10 })
+	db.Post.findAll({ order: [ ['createdAt', 'ASC'] ], limit: 9 })
 	.then((data)=>res.send(data))
 }) 
 
+// GET FIRST TEN POST
+app.get('/api/post/sort/ten',(req,res)=>{
+	db.Post.findAll({ order: [ ['createdAt', 'DESC'] ], limit: 10 })
+	.then((data)=>res.send(data))
+}) 
+
+//SEARCH BY TAGS
+app.get('/api/post/:tags',(req,res)=>{
+	let body = req.body;
+	db.Post.findAll({ where: { tags: req.params.tags } })
+	.then((data)=> res.send(data))
+})
+
+
 
 ///======  USER =======
+// LOGIN
+app.post('/api/login', (req,res)=>{
+	let body = req.body;
+	db.User.findOne(
+		{where: {
+			email: body.email,
+			password: body.password
+			}
+		})
+	.then((data)=>{
+		console.log('====what DATA=====',data)
+		if(data){
+			req.session.user = {
+				id: data.id,
+				username: data.username
+			}
+			req.session.save();
+			console.log('session:',req.session)
+
+			var data = req.session.user;
+			res.send(data)
+
+
+		} else {
+			res.send({error: 'Error in loging User not Found!'})
+		}
+	})
+})
+
+app.post('/api/logout', (req,res)=>req.session.destroy(() => res.end()))
+
 // CREATE USER
 app.post('/api/user',(req,res)=>{
 	db.User.create(
@@ -153,7 +233,7 @@ app.get('/api/user/:id',(req,res)=>{
 
 // app.use(apiRouter)
 db.sequelize.sync().then(function() {
-  app.listen(3000, ()=>console.log('YAY...!! Listening to port 3000'))
+  app.listen(8000, ()=>console.log('YAY...!! Listening to port 8000'))
 })
 
 app.get('/*', function(req, res) {

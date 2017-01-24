@@ -1,0 +1,17 @@
+ /* STYLING LOGIN */
+.log {
+    /*background-color:rgba(19, 240, 242, 0.12);*/
+    background-color:#e8e8e8;
+    padding: 20px;
+    margin-left: 100px;
+}
+
+.card {
+  padding: 20px 25px 30px;
+  margin: 0 auto 25px;
+  margin-top: -18px;
+}
+
+#log{
+    height: 200px;
+}

@@ -1,12 +1,30 @@
 import React from 'react';
 import {Link} from 'react-router';
-// import './Nav.css'
-// import 'bootstrap/dist/js/bootstrap.js';
-// import 'bootstrap/dist/css/bootstrap.css';
+import './style/Nav.css';
+import {connect} from 'react-redux'; 
+import * as userActions from './reducers/userActions.js' 
+
 
 {/*NAVIGATION BAR*/}
 var Navbar = React.createClass({
+  handleLogout: function(e){
+    e.preventDefault()
+    $.ajax({
+      url:'/api/logout',
+      type: 'POST'
+    })
+    .then(()=>{
+    this.props.logout() //action from userActions
+    })
+  },
+
+
+
+
+
+
   render: function() {
+    console.log('this.props.userState.user ',this.props.userState.user)
     return (
     <div>
 
@@ -15,6 +33,7 @@ var Navbar = React.createClass({
           <div className="logo col-xs-3">
             <a href="/" className="logoWidth">
              <img src= "http://www.freeindex.co.uk/aspjpeg/showimage.asp?img=logo.jpg&folder=listingpics/692/506/&maxW=230&maxH=80" />
+
             </a>
           </div>
       </nav>
@@ -27,16 +46,29 @@ var Navbar = React.createClass({
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               <li className="linetext"><Link to="/home">Home</Link></li> 
-
-              <li className="linetext"><Link to="/single-post">Single Post</Link></li>
               <li className="linetext"><Link to="/gallery">Gallery</Link></li>
+              <li className="linetext"><Link to="/all-ads">All Ads</Link></li>
               <li className="linetext"><Link to="/createPost">Place an Ad</Link></li>
-              <li className="linetext"><Link to="/playlists">Playlists</Link></li>  
-              <li className="linetext"><Link to="/playlists/newPlaylist">NewPlaylist</Link></li>  
+              <li className="linetext"><Link to="/manageAd">Manage Ads</Link></li>
+              <li className="linetext"><Link to="/contact">Contact Us</Link></li>  
+              <li className="linetext"><Link to="/help">Help</Link></li>
+
+
+
+             {this.props.userState.user ?
+                <li className="linetext"><a href='#' onClick={this.handleLogout}>Log Out</a></li> :
+                <li className="linetext"><Link to="/login">Login</Link></li>
+              }
+              {! this.props.userState.user ?
+                <li className="linetext"><Link to="/signup">Sign Up</Link></li> :
+                null
+              }              
+
+
+
+
+              <li className="linetext"><Link to="/search">Search</Link></li>  
             </ul>
-
-
-
 
           </div>{ /*/.navbar-collapse */}
         </div>{ /*/.container-fluid */}
@@ -47,4 +79,9 @@ var Navbar = React.createClass({
   }
 })
 
-export default Navbar;
+const mapStoreToProps = store => (
+  {userState: store.userReducer}
+)
+export default connect(mapStoreToProps, userActions)(Navbar); //connects: mapStoreToProps is global state in the props
+
+

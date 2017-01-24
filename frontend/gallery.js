@@ -16,13 +16,13 @@ componentDidMount: function (){
 render(){
 	console.log('ARE YOU GETTING DATA?',this.state.post)
 	return(
-		<div className="container">
-	      <h1>ONLY PICTS</h1>
+		<div className="container-gallery">
+
 	      {this.state.post.map((ele,i)=>{
 	        return <div key={i}>
-	                <h2>{ele.title}</h2> 
+	                <h2 className='gallery-title'>{ele.title}</h2> 
 	                
-	                <img src={ele.image}/>
+	                <img src={ele.image} className='gallery-img'/>
 	                
 	               </div>
 	      })}
