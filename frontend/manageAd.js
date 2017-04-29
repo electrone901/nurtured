@@ -9,7 +9,7 @@ getInitialState() {
 },
 componentDidMount: function (){
 	$.ajax({
-		url: "/api/manage",
+		url: "/api/manage" + input,
 		method:'GET'
 	})
 	.done((data)=>this.setState({post:data}))

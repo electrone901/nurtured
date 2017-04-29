@@ -1,24 +1,25 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define("User", {
+  var Student = sequelize.define("Student", {
+    name: DataTypes.STRING,
+    email: DataTypes.STRING,
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    email: DataTypes.STRING
+    image: DataTypes.STRING
   }, {
 
 
     classMethods: {
       associate: function(models) {
-        // User.hasMany(models.Comment)
-        User.hasMany(models.Post)
+        Student.hasMany(models.Assignment)
       }
     }
 
 
   });
 
-  return User;
+  return Student;
 };
 
 

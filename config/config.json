@@ -2,7 +2,7 @@
   "development": {
     "username": "Luis",
     "password": null,
-    "database": "c",
+    "database": "hack4good",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
