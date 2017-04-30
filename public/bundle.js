@@ -28907,7 +28907,7 @@
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { to: '/gallery' },
-	                  'Gallery'
+	                  'Class'
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -28916,7 +28916,7 @@
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { to: '/all-ads' },
-	                  'All Ads'
+	                  'Settings'
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -28924,63 +28924,10 @@
 	                { className: 'linetext' },
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
-	                  { to: '/createPost' },
-	                  'Place an Ad'
+	                  { to: '/' },
+	                  'Logout'
 	                )
 	              ),
-	              _react2.default.createElement(
-	                'li',
-	                { className: 'linetext' },
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '/manageAd' },
-	                  'Manage Ads'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                { className: 'linetext' },
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '/contact' },
-	                  'Contact Us'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                { className: 'linetext' },
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '/help' },
-	                  'Help'
-	                )
-	              ),
-	              this.props.userState.user ? _react2.default.createElement(
-	                'li',
-	                { className: 'linetext' },
-	                _react2.default.createElement(
-	                  'a',
-	                  { href: '#', onClick: this.handleLogout },
-	                  'Log Out'
-	                )
-	              ) : _react2.default.createElement(
-	                'li',
-	                { className: 'linetext' },
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '/login' },
-	                  'Login'
-	                )
-	              ),
-	              !this.props.userState.user ? _react2.default.createElement(
-	                'li',
-	                { className: 'linetext' },
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '/signup' },
-	                  'Sign Up'
-	                )
-	              ) : null,
 	              _react2.default.createElement(
 	                'li',
 	                { className: 'linetext' },
@@ -29384,24 +29331,37 @@
 	var Home = _react2.default.createClass({
 		displayName: 'Home',
 		getInitialState: function getInitialState() {
-			return { post: '' };
+			return { post: '', document: '' };
 		},
 	
-		componentDidMount: function componentDidMount() {
+		// componentDidMount: function (){
+		// 	$.ajax({
+		// 		url: "/api/post/sort/by-five",
+		// 		method:'GET'
+		// 	})
+		// 	.done((data)=>this.setState({post:data}))
+		// },
+	
+	
+		submitNewPost: function submitNewPost(e) {
 			var _this = this;
 	
+			var info = this.state;
 			_jquery2.default.ajax({
-				url: "/api/post/sort/by-five",
+				url: "http://esllearning2.mybluemix.net/chat?isay=" + this.state.post,
 				method: 'GET'
 			}).done(function (data) {
 				return _this.setState({ post: data });
 			});
 		},
 	
-		submitNewPost: function submitNewPost(e) {
+		handleChange: function handleChange(e) {
+			this.setState({ post: e.currentTarget.value });
+		},
+	
+		submitNewPost2: function submitNewPost2(e) {
 			var _this2 = this;
 	
-			// console.log(' ==== input ===', this.state.post)
 			var info = this.state;
 			_jquery2.default.ajax({
 				url: "http://esllearning2.mybluemix.net/chat?isay=" + this.state.post,
@@ -29411,45 +29371,36 @@
 			});
 		},
 	
-		handleChange: function handleChange(e) {
+		handleChange2: function handleChange2(e) {
 			this.setState({ post: e.currentTarget.value });
 		},
 	
 		render: function render() {
-			console.log('ARE YOU GETTING DATA?', this.state.post);
 			return _react2.default.createElement(
 				'div',
 				{ className: 'container-main' },
-				_react2.default.createElement(_SideBar2.default, null),
 				_react2.default.createElement(
 					'div',
 					{ className: 'middle' },
 					_react2.default.createElement(
 						'form',
 						null,
-						_react2.default.createElement('input', { className: 'input-search', type: 'text', placeholder: 'Reccomendations', onChange: this.handleChange }),
+						_react2.default.createElement('textarea', { className: '', type: 'text', placeholder: 'Copy and paste writng sample here', onChange: this.handleChange2 }),
 						_react2.default.createElement('br', null),
-						_react2.default.createElement('input', { onClick: this.submitNewPost, type: 'button', value: 'Search' })
+						_react2.default.createElement('input', { onClick: this.submitNewPost2, type: 'button', value: 'Send' })
 					),
 					_react2.default.createElement(
-						'h3',
-						{ className: 'middle-feature' },
-						'Reccomendations'
+						'form',
+						null,
+						_react2.default.createElement('input', { className: 'input-search', type: 'text', placeholder: 'How can I help you?', onChange: this.handleChange }),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement('input', { onClick: this.submitNewPost, type: 'button', value: 'Submit' })
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'gallery' },
-						_react2.default.createElement(
-							'h2',
-							null,
-							this.state.post
-						)
+						null,
+						this.state.post
 					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'navRightSide' },
-					_react2.default.createElement(_rightSideBar2.default, null)
 				)
 			);
 		}

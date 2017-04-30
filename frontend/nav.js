@@ -46,10 +46,10 @@ var Navbar = React.createClass({
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               <li className="linetext"><Link to="/home">Home</Link></li> 
-              <li className="linetext"><Link to="/gallery">Gallery</Link></li>
-              <li className="linetext"><Link to="/all-ads">All Ads</Link></li>
-              <li className="linetext"><Link to="/createPost">Place an Ad</Link></li>
-              <li className="linetext"><Link to="/manageAd">Manage Ads</Link></li>
+              <li className="linetext"><Link to="/gallery">Class</Link></li>
+              <li className="linetext"><Link to="/all-ads">Settings</Link></li>
+              <li className="linetext"><Link to="/">Logout</Link></li>
+    {/*          <li className="linetext"><Link to="/manageAd"></Link></li>
               <li className="linetext"><Link to="/contact">Contact Us</Link></li>  
               <li className="linetext"><Link to="/help">Help</Link></li>
 
@@ -64,7 +64,7 @@ var Navbar = React.createClass({
                 null
               }              
 
-
+*/}
 
 
               <li className="linetext"><Link to="/search">Search</Link></li>  

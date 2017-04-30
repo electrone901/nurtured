@@ -6,70 +6,75 @@ import RightSideBar from './rightSideBar.js';
 
 const Home = React.createClass({
 getInitialState() {
-	return ({post: ''})
+	return ({post: '', document:''})
 },
-componentDidMount: function (){
-	$.ajax({
-		url: "/api/post/sort/by-five",
-		method:'GET'
-	})
-	.done((data)=>this.setState({post:data}))
-},
+// componentDidMount: function (){
+// 	$.ajax({
+// 		url: "/api/post/sort/by-five",
+// 		method:'GET'
+// 	})
+// 	.done((data)=>this.setState({post:data}))
+// },
 
 
 submitNewPost: function (e) {
-   	// console.log(' ==== input ===', this.state.post)
-    var info = this.state
-    $.ajax({
-		url: "http://esllearning2.mybluemix.net/chat?isay="+ this.state.post,
+	var info = this.state;
+  $.ajax({
+  	url: "http://esllearning2.mybluemix.net/chat?isay="+ this.state.post,
 		method:'GET',
 	})
-	.done((data)=>this.setState({post:data})
-		)
-
+	.done((data)=>this.setState({post:data}))
   },
 
 	handleChange: function(e) {
 	this.setState({post: e.currentTarget.value})
   },
 
-render(){
-	console.log('ARE YOU GETTING DATA?',this.state.post)
-	return(
-		<div className="container-main">
+  submitNewPost2: function (e) {
+	var info = this.state;
+  $.ajax({
+  	url: "http://esllearning2.mybluemix.net/chat?isay="+ this.state.post,
+		method:'GET',
+	})
+	.done((data)=>this.setState({post:data}))
+  },
 
-			<SideBar />   
+  handleChange2: function(e) {
+	this.setState({post: e.currentTarget.value})
+  },
+
+render(){
+	return(
+
+		<div className="container-main">
 			<div className='middle'>
 
-		      <form>
-	          <input className='input-search' type="text" placeholder="Reccomendations" onChange={this.handleChange}></input><br/>
-	          <input onClick={this.submitNewPost} type="button" value="Search" />
+			<form>
+				<textarea className='' type="text" placeholder="Copy and paste writng sample here" onChange={this.handleChange2}></textarea><br/>
+	          <input onClick={this.submitNewPost2} type="button" value="Send" />
+	          
+	    </form>
+
+	    <form>
+	          <input className='input-search' type="text" placeholder="How can I help you?" onChange={this.handleChange}></input><br/>
+	          <input onClick={this.submitNewPost} type="button" value="Submit" />
 	    		</form>
 
-	    		<h3 className='middle-feature'>Reccomendations</h3>
+	    		<div>
+	    		 {this.state.post}
 
-
-
-		      <div className='gallery'>
-		        	<h2>{this.state.post}</h2>
-		      </div>
+	    		</div>
 		     
-		    </div>
-
-
-		    <div className='navRightSide'>
-		    	<RightSideBar/>
-		      
-		     
-		    </div>
-
-
-      </div>
+		  </div>
+    </div>
 		)
 }
 })
 
 export default Home
+
+
+
 
 
 
