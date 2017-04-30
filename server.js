@@ -6,6 +6,13 @@ var bodyparser = require('body-parser')
 var path = require('path')
 var db = require('./models')
 
+app.use(function(req, res, next) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+        next();
+});
+
 var session_config = {
 	secret: 'secret key',
 	name: 'session_id',
@@ -14,11 +21,13 @@ var session_config = {
 }
 
 
+
 //=====  middleware  ====
 app.use(session(session_config))  
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json())
 app.use(express.static('./public')) // absolute path /
+
 
 
 // ========================================

@@ -29384,7 +29384,7 @@
 	var Home = _react2.default.createClass({
 		displayName: 'Home',
 		getInitialState: function getInitialState() {
-			return { post: [] };
+			return { post: '' };
 		},
 	
 		componentDidMount: function componentDidMount() {
@@ -29401,12 +29401,11 @@
 		submitNewPost: function submitNewPost(e) {
 			var _this2 = this;
 	
-			console.log(' ==== input ===', this.state.post);
+			// console.log(' ==== input ===', this.state.post)
 			var info = this.state;
 			_jquery2.default.ajax({
 				url: "http://esllearning2.mybluemix.net/chat?isay=" + this.state.post,
-				method: 'GET',
-				cors: true
+				method: 'GET'
 			}).done(function (data) {
 				return _this2.setState({ post: data });
 			});
@@ -29437,23 +29436,15 @@
 						{ className: 'middle-feature' },
 						'Reccomendations'
 					),
-					this.state.post.map(function (ele, i) {
-						return _react2.default.createElement(
-							'div',
-							{ key: i, className: 'gallery' },
-							_react2.default.createElement('img', { src: ele.image, className: 'itemGallery' }),
-							_react2.default.createElement(
-								_reactRouter.Link,
-								{ to: '/posts/' + ele.id },
-								_react2.default.createElement(
-									'h4',
-									{ className: 'img-title' },
-									ele.title
-								),
-								' '
-							)
-						);
-					})
+					_react2.default.createElement(
+						'div',
+						{ className: 'gallery' },
+						_react2.default.createElement(
+							'h2',
+							null,
+							this.state.post
+						)
+					)
 				),
 				_react2.default.createElement(
 					'div',
