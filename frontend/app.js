@@ -8,26 +8,13 @@ import reducers from './reducers'; //look for index.js, ndex has export this is 
 
 
 import Navbar from './nav';
-import Home from './home';
+import SubmitWriting from './SubmitWriting';
 import Footer from './footer';
-// import Gallery from './gallery'
-// import CreatePost from './create-post'
-// import SinglePost from './single-post'
-// import Contactus from './contactus'
-// import Help from './help'
-// import Login from './login'
-
-// import ManageAd from './manageAd'
-// import ManageAdSinglePost from './manageAdSinglePost'
-// import SideBar from './SideBar.js'
-// import AllAds from './AllAds.js'
-// import SearchByTitle from './search.js'
-// import SignUp from './signup.js';
-// import Logout from './Logout.js';
-// import NewestPost from './NewestPost.js';
-// import OldestPost from './oldestPost.js';
-// import FirstTenPost from './FirstTenPost.js';
-// import NewTags from './NewTags.js';
+import MainHomePage from './MainHomePage';
+import Class from './Class';
+import Settings from './Settings';
+import Search from './Search';
+import StudentDashBoard from './StudentDashBoard';
 
 const store = createStore(reducers)
 
@@ -37,7 +24,7 @@ const App = React.createClass({
       <div>
       <Navbar />
       {this.props.children} 
-      <Footer />
+  
       </div>
       )
   }
@@ -47,30 +34,12 @@ ReactDOM.render(
 <Provider store={store}> 
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-	  <IndexRoute component={Home} />
-      <Route path="/home" component={Home} />
-
-
-     {/*} <Route path="/all-ads" component={AllAds} />
-      <Route path="/login" component={Login} />
-      <Route path="/gallery" component={Gallery} />
-      <Route path="/contact" component={Contactus} />
-      <Route path="/help" component={Help} />
-      <Route path="/posts/:postId" component={SinglePost}/>
-
-      <Route path="/search" component={SearchByTitle}/>
-      <Route path="/signup" component={SignUp}/>
-      <Route path="/logout" component={SignUp}/>
-
-      <Route path="/NewestPost" component={NewestPost}/>
-      <Route path="/OldestPost" component={OldestPost}/>
-      <Route path="/FirstTenPost" component={FirstTenPost}/>
-      <Route path="/NewTags" component={NewTags}/>
-      <Route path="/posts/manageSinglePost/:postId" component={ManageAdSinglePost}/>
-      <Route path="/createPost" component={CreatePost} />
-      <Route path="/manageAd" component={ManageAd} />
-*/}
-
+	  <IndexRoute component={MainHomePage} />
+      <Route path="/submit-writing" component={SubmitWriting} />
+      <Route path="/class" component={Class} />
+      <Route path="/settings" component={Settings} />
+      <Route path="/feedback" component={Search} />
+      <Route path="/student-dashBoard" component={StudentDashBoard} />
 
     </Route>
   </Router>
