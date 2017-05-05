@@ -14,7 +14,7 @@ submitNewPost: function (e) {
   console.log('inputUser',e.target.value)
   var info = this.state;
   $.ajax({
-    url: "http://esllearning2.mybluemix.net/chat?isay="+ this.state.post,
+    url: "https://esllearning2.mybluemix.net/chat?isay="+ this.state.post,
     method:'GET',
   })
   .done(function(data) {

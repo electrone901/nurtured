@@ -45,7 +45,7 @@ submitNewPost: function (e) {
   var info = this.state;
   console.log('yaya!')
   $.ajax({
-    url: "http://localhost:4000/predict?text="+ this.state.result,
+    url: "https://localhost:4000/predict?text="+ this.state.result,
     method:'GET',
   })
   .done((data)=>this.setState({result:data}))

@@ -40639,7 +40639,7 @@
 	    console.log('inputUser', e.target.value);
 	    var info = this.state;
 	    _jquery2.default.ajax({
-	      url: "http://esllearning2.mybluemix.net/chat?isay=" + this.state.post,
+	      url: "https://esllearning2.mybluemix.net/chat?isay=" + this.state.post,
 	      method: 'GET'
 	    }).done(function (data) {
 	      console.log('are you getting it?', data);
@@ -40666,7 +40666,7 @@
 	    var info = this.state;
 	    console.log('yaya!');
 	    _jquery2.default.ajax({
-	      url: "http://localhost:4000/predict?text=" + this.state.result,
+	      url: "https://localhost:4000/predict?text=" + this.state.result,
 	      method: 'GET'
 	    }).done(function (data) {
 	      return _this.setState({ result: data });
