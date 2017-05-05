@@ -6,9 +6,11 @@ const Settings = React.createClass({
      render(){
           return(
                <div>
-                    <h2>Settings</h2>
-                    <br/>
-                    	SHOW SOMETHING HERE
+               	<center>
+              		<img id="stadisticsFirstImg" src="http://laavenidanyc.com/wp-content/uploads/2017/05/sta1.png" />
+
+              		<img id="" src="http://laavenidanyc.com/wp-content/uploads/2017/05/sta2.png" />
+              	</center>
                </div>
           )
 	}

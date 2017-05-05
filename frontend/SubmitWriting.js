@@ -1,153 +1,170 @@
 import React from 'react';
 import $ from 'jquery';
 import {Link} from 'react-router';
-import SideBar from './SideBar.js'
-import RightSideBar from './rightSideBar.js';
+import ToggleDisplay from 'react-toggle-display';
 
 const SubmitWriting = React.createClass({
 getInitialState() {
-	return ({ post: '', document:'', postResult:[], result:{} })
+  return ({ post: '', document:'', postResult:[], result:{}, show:false })
 },
 
 submitNewPost: function (e) {
-	var info = this.state;
+  e.preventDefault();
+  var inputUser = e.target.value;
+  console.log('inputUser',e.target.value)
+  var info = this.state;
   $.ajax({
-  	url: "http://esllearning2.mybluemix.net/chat?isay="+ this.state.post,
-		method:'GET',
-	})
+    url: "http://esllearning2.mybluemix.net/chat?isay="+ this.state.post,
+    method:'GET',
+  })
+  .done(function(data) {
+    console.log('are you getting it?', data);
+    var myData = data.slice(data.indexOf(':')+1, data.indexOf('}'))
+    console.log('are you getting anish', myData);
 
-	// .done((data)=>this.setState({postResult:data}))
-
-
-	.done(function(data) {
-		//(data)=>this.setState({postResult:data});
-		console.log('are you getting it?');
-		var ibmDiv = document.getElementById('ibm');
-		ibmDiv.innerHTML += data + "<br>"; //.post;
-		ibmDiv.innerHTML += "BBB";//this.state.postResult;
-	})
-		
+    var ibmDiv = document.getElementById('ibm');
+    ibmDiv.innerHTML += "you: "+ info.post + "<br>";
+    ibmDiv.innerHTML += "chatBot: " + myData + "<br>";
+    document.getElementById("chatInput").value = "";
+  })
+    
 
   },
 
-	handleChange: function(e) {
-	this.setState({post: e.currentTarget.value})
+  handleChange: function(e) {
+  console.log('e:', e.currentTarget.value)
+  this.setState({post: e.currentTarget.value});
+  
   },
+
+
 
   //Adrian API
   submitNewPost2: function (e) {
-	var info = this.state;
+    this.setState({show: !this.state.show});
+  var info = this.state;
+  console.log('yaya!')
   $.ajax({
-  	url: "http://localhost:4000/predict?text="+ this.state.result,
-		method:'GET',
-	})
-	.done((data)=>this.setState({result:data}))
+    url: "http://localhost:4000/predict?text="+ this.state.result,
+    method:'GET',
+  })
+  .done((data)=>this.setState({result:data}))
   },
 
   handleChange2: function(e) {
-	this.setState({post: e.currentTarget.value})
+  this.setState({post: e.currentTarget.value})
   },
 
-  // renderRow() {
-		// var arr = this.state.Result.map(function(obj) {
-		//    return <div>Key: {key}, Value: {this.state.Result[key]}</div>;
-		//  })
-	 //  }
-  // }
+  render(){
+  console.log('result', this.state.result)
+  console.log('postResult', this.state.postResult)
+  return(
+
+    <div>
+      <h2 id="checking">Checking Writing Sample</h2> 
+    <div>
+
+    <div id="textform1">
+      <form>
+        <textarea id="textarea" type="text" placeholder="Copy and paste writng sample here" onChange={this.handleChange2}></textarea>
+        <input id="submitTextButton" onClick={this.submitNewPost2} type="button" value="Send" />  
+      </form>
+    </div>
 
 
 
-render(){
-	console.log('result', this.state.result)
-	console.log('postResult', this.state.postResult)
-	return(
+    <div id="chatboat1">
+      <div id="ToggleDisplayDiv">
+        <ToggleDisplay id="ToggleDisplayDiv" show={this.state.show}>
 
-		<div>
-			<h2 id="checking">Checking Writing Sample</h2>
-		  <div>
-		  <center>
-		     
+          { (this.state.result) ?
+          <div id="submit01">{this.state.result.GradeLevel}
+          <p id="submitParagrph">Reading Level </p>
+          </div> : 'no data'
+          }
 
+          { (this.state.result) ?
 
-		  <form>
-				<textarea id="textarea" type="text" placeholder="Copy and paste writng sample here" onChange={this.handleChange2}></textarea><br/>
-	          <input id="submit" onClick={this.submitNewPost2} type="button" value="Send" />
-	    </form>
+            <div id="submit02">{this.state.result.ReadingEase}
+            <p id="submitParagrph">Readabili- ty Score </p>
+            </div> : 'no data'
+          }
 
+          { (this.state.result) ?
 
+            <div id="submit03">{this.state.result.GrammarCount}
+            <p id="submitParagrph">Grammar Errors </p>
+            </div> : 'no data'
+          }
+          { (this.state.result) ?
 
+            <div id="submit04">{this.state.result.RunOns}
+            <p id="submitParagrph">Run-On Sentences </p>
+            </div> : 'no data'
+          }
+        </ToggleDisplay>
+      </div>
 
+      <div id="chatboat">
 
-
-	    <form>
-        <input className='input-search' type="text" placeholder="How can I help you?" onChange={this.handleChange}></input><br/>
-        <input onClick={this.submitNewPost} type="button" value="Submit" />
-  		</form>
-
-
-
-
-		  </center>
-
-
-		 {/*{(this.state.postResult) ?
-		  	<div>
-			  		{this.state.postResult}
-		  	</div> : ''
-		  }
-		*/}
+        Do more with smart conversation.
+        <div id="ibm">
+        </div>
 
 
-		  
+        <form onSubmit={this.submitNewPost} >
+          <input id='chatInput' type="text" placeholder="How can I help you?" onChange={this.handleChange}></input>
+          <input id='submitButton2' type="submit" value="Submit" />
+        </form>
+
+      </div>
+    </div>
 
 
 
-		  { (this.state.result) ?
 
-				<div>Grade Level: {this.state.result.GradeLevel}
-				</div> : 'no data'
-			}
+</div>
 
+       {/*<ToggleDisplay show={this.state.show}>
+        { (this.state.result) ?
 
-			<div id="ibm">Results from IBM:<br/>
+        <div id="submit1">{this.state.result.GradeLevel}
+        <h2>Reading Level </h2>
+        </div> : 'no data'
+        }
 
-			</div>
+        { (this.state.result) ?
 
-		  </div>
-		</div>
+          <div id="submit2">{this.state.result.ReadingEase}
+          <h2>Readability Score </h2>
+          </div> : 'no data'
+        }
 
+        { (this.state.result) ?
 
-		)
+          <div id="submit3">{this.state.result.GrammarCount}
+          <h2>Grammar Errors </h2>
+          </div> : 'no data'
+        }
+        { (this.state.result) ?
+
+          <div id="submit4">{this.state.result.RunOns}
+          <h2>Run-On Sentences </h2>
+          </div> : 'no data'
+        }
+          
+       </ToggleDisplay>*/}
+    </div>
+    )
 }
 })
 
-export default SubmitWriting
-
-
-// reading ease of understanding
-// grammer count
-// run on sentence detection
-// grade level
-// Object {GradeLevel: 6.4, Grammar Count: 1, ReadingEase: 52.53, Sentences: 1, Words: 2}
+export default SubmitWriting;
 
 
 
-// 
 
 
-// <div>Grade Level: {this.state.result.GradeLevel}
-
-// 				reading ease of understanding
-// // grammer count
-// // run on sentence detection
-// // grade level
-
-// 				Grade Level: {this.state.result.GradeLevel}
-// 				Grade Level: {this.state.result.GradeLevel}
-// 				Grade Level: {this.state.result.GradeLevel}
-
-// 				</div> : 'no data'
-// 			}
 
 
 

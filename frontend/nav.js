@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import './style/Nav.css';
 import {connect} from 'react-redux'; 
 import * as userActions from './reducers/userActions.js';
-import HeaderProfile from './HeaderProfile';
+
 
 
 
@@ -25,7 +25,6 @@ var Navbar = React.createClass({
     return (
     <div>
 
-  {/* will be nice to have but not working<HeaderProfile />*/}
     <header>
       <div>
           <a href=""><img id="pictProfile" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAqGAAAAJDcwY2IzMDFlLTkwYTgtNDVlOC04NDljLWU1MDVlNGU2NDQ4Yw.jpg"/></a>
@@ -34,11 +33,11 @@ var Navbar = React.createClass({
           <nav>
             <ul>
                 <li><b><Link to="/">Home</Link></b></li>
-                <li><b><Link to="/student-dashBoard">Welcome</Link></b></li>
+                <li><b><Link to="/student-dashBoard">Dashboard</Link></b></li>
                 <li><b><Link to="/submit-writing"> Check  writing</Link></b></li>
-                <li><b><Link to="/class">Class</Link></b></li>
-                <li><b><Link to="/settings">Settings</Link></b></li>
-                <li><b><Link to="/feedback">Student feedback</Link></b></li>
+                {/*<li><b><Link to="/class">Class</Link></b></li>*/}
+                <li><b><Link to="/settings">All my Statistics</Link></b></li>
+                {/*<li><b><Link to="/feedback">Student feedback</Link></b></li>*/}
                 <li><b><Link to="/">Logout</Link></b></li>                        
                                         
             </ul>                                                    

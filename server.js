@@ -1,10 +1,10 @@
 var express = require('express')
 
-var session = require('express-session')
+// var session = require('express-session')
 var app = express()
 var bodyparser = require('body-parser')
 var path = require('path')
-var db = require('./models')
+// var db = require('./models')
 
 app.use(function(req, res, next) {
         res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,24 +13,29 @@ app.use(function(req, res, next) {
         next();
 });
 
-var session_config = {
-	secret: 'secret key',
-	name: 'session_id',
-	resave: false,
-	saveUninitialized: true
-}
+// var session_config = {
+// 	secret: 'secret key',
+// 	name: 'session_id',
+// 	resave: false,
+// 	saveUninitialized: true
+// }
 
 
 
 //=====  middleware  ====
-app.use(session(session_config))  
+// app.use(session(session_config ))  
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json())
 app.use(express.static('./public')) // absolute path /
-
-
-
 // ========================================
+
+ app.listen(8000, ()=>console.log('YAY...!! Listening to port 8000'))
+
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '/views/index.html'))
+})
+
 
 
 
@@ -241,11 +246,11 @@ app.use(express.static('./public')) // absolute path /
 
 
 // app.use(apiRouter)
-db.sequelize.sync().then(function() {
-  app.listen(8000, ()=>console.log('YAY...!! Listening to port 8000'))
-})
+// db.sequelize.sync().then(function() {
+  // app.listen(8000, ()=>console.log('YAY...!! Listening to port 8000'))
+// })
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '/views/index.html'))
-})
+// app.get('/*', function(req, res) {
+//   res.sendFile(path.join(__dirname, '/views/index.html'))
+// })
 
