@@ -6,7 +6,7 @@ var bodyparser = require('body-parser')
 var path = require('path')
 
 //CALL FILE, CREATE DB
-require('./server.py')
+// require('./server.py')
 
 
 // var db = require('./models')
