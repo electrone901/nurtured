@@ -11,7 +11,7 @@ getInitialState() {
 submitNewPost: function (e) {
 	var info = this.state;
   $.ajax({
-  	url: "http://esllearning2.mybluemix.net/chat?isay="+ this.state.post,
+  	url: "https://esllearning2.mybluemix.net/chat?isay="+ this.state.post,
 		method:'GET',
 	})
 	.done((data)=>this.setState({postResult:data}))
